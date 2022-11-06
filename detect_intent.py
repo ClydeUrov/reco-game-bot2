@@ -2,6 +2,7 @@ from google.cloud import dialogflow
 
 
 def detect_intent_text(project_id, session_id, text, language_code):
+    logger.warning(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
 
