@@ -2,7 +2,7 @@
 
 Проект по интеграции Google API DialogFlow в телеграмм-бот через модули python-telegram-bot.
 
-![gif](example.mp4)
+![gif](example.gif)
 
 ## Настройки
 
