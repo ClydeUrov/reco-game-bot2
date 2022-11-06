@@ -1,8 +1,11 @@
 from google.cloud import dialogflow
+import logging
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def detect_intent_text(project_id, session_id, text, language_code):
-    logger.warning(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
+    logging.warning(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
 
