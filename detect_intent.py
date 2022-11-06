@@ -7,6 +7,9 @@ load_dotenv()
 
 def detect_intent_text(project_id, session_id, text, language_code):
     logging.warning(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
+    with open('google-credentials.json', 'r', encoding='UTF-8') as file:
+        phrases = json.load(file)
+        print(phrases)
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
 
