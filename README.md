@@ -1,8 +1,9 @@
 # Чатбот Telegram обученный через DialogFlow.
 
-Проект по интеграции Google API DialogFlow в телеграмм-бот через модули python-telegram-bot.
+Проект по интеграции Google API DialogFlow в телеграмм-бот и в группу ВК через модули python-telegram-bot.
 
-![gif](example.gif)
+Пример работы ботов:
+![gif](example.gif) ![gif](VK_example.gif) 
 
 ## Настройки
 
@@ -26,11 +27,11 @@
 
 Создайте файл `.env` в корневой папке с кодом и запишите туда:
 ```
-DIALOGFLOW_PROJECT_ID=ВАШ_PROJECT_ID
+PROJECT_ID=ВАШ_PROJECT_ID
 GOOGLE_APPLICATION_CREDENTIALS=ПУТЬ_ДО_JSON_КЛЮЧА
-TG_BOT_TOKEN=ВАШ_TELEGRAM_API_КЛЮЧ
+TG_TOKEN=ВАШ_TELEGRAM_API_КЛЮЧ
 TG_CHAT_ID=ВАШ_CHAT_ID
-VK_BOT_TOKEN=ВАШ_API_КЛЮЧ_ВК
+VK_TOKEN=ВАШ_API_КЛЮЧ_ВК
 ```
 
 ## Запуск программы
