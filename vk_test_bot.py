@@ -1,5 +1,4 @@
 import os
-import vk_api
 import vk_api as vk
 import random
 from dotenv import load_dotenv
@@ -8,14 +7,12 @@ from requests.adapters import HTTPAdapter
 import logging
 import telegram
 from detect_intent import detect_intent_text
-from pprint import pprint
 from logs_handler import TelegramLogsHandler
 
 logger = logging.getLogger('Logger')
 
 
 def reply(event, vk_api):
-    1/0
     intent = detect_intent_text(
         project_id=os.environ['PROJECT_ID'],
         session_id=f'vk-{event.user_id}',
