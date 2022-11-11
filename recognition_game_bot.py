@@ -31,7 +31,7 @@ async def process_start_command(message: types.Message):
     try:
         await message.reply("Добрый день. Чем могу вам помочь?")
     except Exception:
-        logger.exception(msg="Бот упал с ошибкой:")
+        logger.exception("Бот упал с ошибкой:")
 
 
 @dp.message_handler(commands=["help"])
@@ -46,7 +46,7 @@ async def process_help_command(message: types.Message):
         Устройство на работу"""
         )
     except Exception:
-        logger.exception(msg="Бот упал с ошибкой:")
+        logger.exception("Бот упал с ошибкой:")
 
 
 @dp.message_handler()
@@ -56,11 +56,10 @@ async def response_message(msg: types.Message):
             project_id=project_id,
             session_id=tg_chat_id,
             text=msg.text,
-            language_code="ru",
         )
         await bot.send_message(msg.from_user.id, intent.fulfillment_text)
     except Exception:
-        logger.exception(msg="Бот упал с ошибкой:")
+        logger.exception("Бот упал с ошибкой:")
 
 
 executor.start_polling(dp)

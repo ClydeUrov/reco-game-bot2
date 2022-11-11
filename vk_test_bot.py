@@ -19,7 +19,6 @@ def reply(event, vk_api):
         project_id=os.environ["PROJECT_ID"],
         session_id=f"vk-{event.user_id}",
         text=event.text,
-        language_code="ru",
     )
     if not intent.intent.is_fallback:
         vk_api.messages.send(
