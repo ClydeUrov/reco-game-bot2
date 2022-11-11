@@ -1,6 +1,7 @@
-import os
-from dotenv import load_dotenv
 import json
+import os
+
+from dotenv import load_dotenv
 from google.cloud import dialogflow
 
 
@@ -18,9 +19,7 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     message = dialogflow.Intent.Message(text=text)
 
     intent = dialogflow.Intent(
-        display_name=display_name,
-        training_phrases=training_phrases,
-        messages=[message]
+        display_name=display_name, training_phrases=training_phrases, messages=[message]
     )
     response = intents_client.create_intent(
         request={"parent": parent, "intent": intent}
@@ -30,14 +29,14 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 def main():
     load_dotenv()
-    project_id = os.environ['PROJECT_ID']
-    with open('phrases.json', 'r', encoding='UTF-8') as file:
+    project_id = os.environ["PROJECT_ID"]
+    with open("phrases.json", "r", encoding="UTF-8") as file:
         phrases = json.load(file)
     for phrase in phrases:
-        training_phrases_parts = phrases[phrase]['questions']
-        message_texts = [phrases[phrase]['answer']]
+        training_phrases_parts = phrases[phrase]["questions"]
+        message_texts = [phrases[phrase]["answer"]]
         create_intent(project_id, phrase, training_phrases_parts, message_texts)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
