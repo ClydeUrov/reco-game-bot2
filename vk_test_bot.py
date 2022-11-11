@@ -9,45 +9,46 @@ import logging
 import telegram
 from detect_intent import detect_intent_text
 from pprint import pprint
-
-load_dotenv()
-
-class TelegramLogsHandler(logging.Handler):
-    def __init__(self, tg_bot, chat_id):
-        super().__init__()
-        self.chat_id = chat_id
-        self.tg_bot = tg_bot
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
-
+from logs_handler import TelegramLogsHandler
 
 logger = logging.getLogger('Logger')
 
 
-
-def echo(event, vk_api):
-    project_id = os.environ['PROJECT_ID']
+def reply(event, vk_api):
+    1/0
     intent = detect_intent_text(
-        project_id=project_id,
+        project_id=os.environ['PROJECT_ID'],
         session_id=f'vk-{event.user_id}',
         text=event.text,
         language_code="ru"
     )
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=intent,
-        random_id=random.randint(1,1000)
-    )
+    if not intent.intent.is_fallback:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=intent.fulfillment_text,
+            random_id=random.randint(1,1000)
+        )
+
+def main():
+    load_dotenv()
+    tg_token = os.environ['TG_TOKEN']
+    tg_chat_id = os.environ['TG_CHAT_ID']
+    tg_bot = telegram.Bot(token=tg_token)
+    logger.setLevel(logging.INFO)
+    logger.addHandler(TelegramLogsHandler(tg_bot, tg_chat_id))
+    logger.info('ВК бот запущен')
+
+    vk_session = vk.VkApi(token=os.environ['VK_TOKEN'])
+    vk_api = vk_session.get_api()
+    try:
+        longpoll = VkLongPoll(vk_session)
+        for event in longpoll.listen():
+            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+                reply(event, vk_api)
+    except Exception:
+        logger.exception(msg='VK Бот упал с ошибкой:')
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    vk_token = os.environ['VK_TOKEN']
-    vk_session = vk.VkApi(token=vk_token)
-    vk_api = vk_session.get_api()
-    longpoll = VkLongPoll(vk_session)
-    for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+    main()
+    
