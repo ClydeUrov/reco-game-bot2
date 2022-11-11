@@ -2,8 +2,8 @@
 
 Проект по интеграции Google API DialogFlow в телеграмм-бот и в группу ВК через модули python-telegram-bot.
 
-Пример работы ботов:
-![gif](example.gif) ![gif](VK_example.gif) 
+Пример работы ботов:  
+![gif](example.gif), ![gif](VK_example.gif) 
 
 ## Настройки
 
