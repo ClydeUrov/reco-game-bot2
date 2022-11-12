@@ -1,5 +1,6 @@
 import json
 import os
+import argparse
 
 from dotenv import load_dotenv
 from google.cloud import dialogflow
@@ -27,16 +28,25 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     return response
 
 
-def main():
+def main(phrases):
     load_dotenv()
     project_id = os.environ["PROJECT_ID"]
-    with open("phrases.json", "r", encoding="UTF-8") as file:
+
+    with open(phrases, 'r', encoding='utf-8') as file:
         phrases = json.load(file)
-    for phrase in phrases:
-        training_phrases_parts = phrases[phrase]["questions"]
-        message_texts = [phrases[phrase]["answer"]]
-        create_intent(project_id, phrase, training_phrases_parts, message_texts)
+
+    for phrase, item in phrases.items():
+        create_intent(project_id, phrase, item['questions'], [(item['answer'])])
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Выгружает json-файл на Dialogflow"
+    )
+    parser.add_argument(
+        "-p",
+        dest="phrases",
+        help="Наименование Json файла с фразами (Формат смотреть в README)",
+        default="phrases.json"
+    )
+    main(parser.parse_args().phrases)
