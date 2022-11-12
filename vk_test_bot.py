@@ -14,9 +14,9 @@ from logs_handler import TelegramLogsHandler
 logger = logging.getLogger("Logger")
 
 
-def reply(event, vk_api):
+def reply(event, vk_api, project_id):
     intent = detect_intent_text(
-        project_id=os.environ["PROJECT_ID"],
+        project_id=project_id,
         session_id=f"vk-{event.user_id}",
         text=event.text,
     )
@@ -30,6 +30,7 @@ def reply(event, vk_api):
 
 def main():
     load_dotenv()
+    project_id=os.environ["PROJECT_ID"]
     tg_token = os.environ["TG_TOKEN"]
     tg_chat_id = os.environ["TG_CHAT_ID"]
     tg_bot = telegram.Bot(token=tg_token)
@@ -43,7 +44,7 @@ def main():
         longpoll = VkLongPoll(vk_session)
         for event in longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                reply(event, vk_api)
+                reply(event, vk_api, project_id)
     except Exception:
         logger.exception(msg="VK Бот упал с ошибкой:")
 
