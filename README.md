@@ -1,6 +1,6 @@
 # Чатбот Telegram обученный через DialogFlow.
 
-Проект по интеграции Google API DialogFlow в телеграмм-бот и в группу ВК через модули python-telegram-bot.
+Проект по интеграции Google API DialogFlow в телеграмм-бот и в группу Вконтакте через модули python-telegram-bot.
 
 Пример работы ботов:  
 ![gif](example.gif), ![gif](VK_example.gif) 
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ```
 - Запустите скрипт командой: 
 ```
-python recognition_game_bot.py
+python tg_bot.py
 ```
 ```
 python vk_test_bot.py
@@ -93,6 +93,10 @@ python vk_test_bot.py
 - Запустите скрипт командой:
 ```
 python сreate_intent.py
+```
+- При необходимости название Json файла можно задать следующим образом:
+```
+python сreate_intent.py -p [Название файла]
 ```
 
 ### Цель проекта
