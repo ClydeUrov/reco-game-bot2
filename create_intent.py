@@ -28,18 +28,9 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     return response
 
 
-def main(phrases):
+def main():
     load_dotenv()
     project_id = os.environ["PROJECT_ID"]
-
-    with open(phrases, 'r', encoding='utf-8') as file:
-        phrases = json.load(file)
-
-    for phrase, item in phrases.items():
-        create_intent(project_id, phrase, item['questions'], [(item['answer'])])
-
-
-if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Выгружает json-файл на Dialogflow"
     )
@@ -49,4 +40,13 @@ if __name__ == "__main__":
         help="Наименование Json файла с фразами (Формат смотреть в README)",
         default="phrases.json"
     )
-    main(parser.parse_args().phrases)
+
+    with open(parser.parse_args().phrases, 'r', encoding='utf-8') as file:
+        phrases = json.load(file)
+
+    for phrase, item in phrases.items():
+        create_intent(project_id, phrase, item['questions'], [(item['answer'])])
+
+
+if __name__ == "__main__":
+    main()
