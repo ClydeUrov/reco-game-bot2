@@ -18,6 +18,7 @@ tg_bot = telegram.Bot(token=tg_token)
 bot = Bot(token=tg_token)
 dp = Dispatcher(bot)
 
+
 @dp.message_handler()
 async def response_message(msg: types.Message):
     try:
